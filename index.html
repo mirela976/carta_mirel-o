@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uma carta para você 💌</title>
+<style>
+:root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#823654}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(145deg,#ffe2ec,#f8b9d2);overflow-x:hidden;padding:24px}.card{position:relative;width:min(100%,590px);min-height:410px;background:#fff9fc;border:1px solid #fff;border-radius:26px;box-shadow:0 18px 55px #a43d6830;padding:38px 28px;text-align:center;z-index:1}h1{font-size:clamp(25px,6vw,36px);margin:12px 0 14px;color:#bc3c75}.subtitle{line-height:1.6}.envelope{font-size:76px;margin:12px auto;animation:float 3s ease-in-out infinite}.btn{border:0;border-radius:30px;background:#d94485;color:white;padding:15px 26px;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 8px 18px #ce49824d}.btn:hover{background:#b92f6b}.letter{display:none;margin:18px auto 0;max-width:480px;line-height:1.8;white-space:pre-line;text-align:center;font-size:16px;min-height:200px}.signature{font-weight:700;color:#b83270;margin-top:22px}.heart{position:fixed;top:-35px;pointer-events:none;animation:fall linear forwards;opacity:.7;z-index:0}@keyframes fall{to{transform:translateY(110vh) rotate(80deg);opacity:0}}@keyframes float{50%{transform:translateY(-8px)}}@media(prefers-reduced-motion:reduce){.envelope{animation:none}.heart{display:none}}
+</style>
+</head>
+<body>
+<main class="card"><div id="intro"><div class="envelope" aria-hidden="true">💌</div><h1>Uma carta para você</h1><p class="subtitle">Tem uma coisinha especial que eu queria te dizer... 💗</p><button class="btn" id="open">Abrir minha carta 💕</button></div><section id="opened" hidden><h1>Para alguém muito especial 💖</h1><div id="letter" class="letter" aria-live="polite"></div><p id="signature" class="signature" hidden>Com amor, sua melhor amiga Mirelão. 💕</p><button class="btn" id="again" hidden>Ler novamente 💌</button></section></main>
+<script>
+const message=`Desde que você chegou, meus dias ficaram mais bonitos.\n\nNão sei explicar exatamente quando aconteceu, mas aos poucos você se tornou alguém muito especial.\n\nSeu sorriso, seu jeito e até nossas conversas mais simples conseguem transformar o meu dia.\n\nSe eu pudesse escolher alguém para viver momentos inesquecíveis, escolheria você. 💕\n\nObrigada por existir e por fazer parte da minha vida. ❤️`;
+const intro=document.getElementById('intro'),opened=document.getElementById('opened'),letter=document.getElementById('letter'),signature=document.getElementById('signature'),again=document.getElementById('again');let timer;
+function start(){clearInterval(timer);intro.hidden=true;opened.hidden=false;letter.style.display='block';letter.textContent='';signature.hidden=true;again.hidden=true;let i=0;const chars=Array.from(message);if(matchMedia('(prefers-reduced-motion: reduce)').matches){letter.textContent=message;signature.hidden=false;again.hidden=false;return}timer=setInterval(()=>{letter.textContent+=chars[i++];if(i>=chars.length){clearInterval(timer);signature.hidden=false;again.hidden=false}},24)}
+document.getElementById('open').addEventListener('click',start);again.addEventListener('click',start);
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){setInterval(()=>{if(document.hidden)return;const h=document.createElement('span');h.className='heart';h.textContent=['💗','💕','💖','♡'][Math.floor(Math.random()*4)];h.style.left=Math.random()*100+'vw';h.style.fontSize=12+Math.random()*17+'px';h.style.animationDuration=5+Math.random()*5+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),10500)},700)}
+</script>
+</body></html>
